@@ -230,7 +230,7 @@ if __name__ == '__main__':
               'include_files': include_files,
               'silent': True
           }},
-          executables = [Executable(os.path.join('pympress', '__main__.py'), targetName='pympress.exe', base='Win32GUI')]
+          executables = [Executable(os.path.join('pympress', '__main__.py'), targetName='pympress.exe', base='Console')]
         ))
 
     setup(**setup_opts)

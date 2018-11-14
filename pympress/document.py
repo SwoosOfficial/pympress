@@ -268,7 +268,11 @@ class Page(object):
             dest_type = action.goto_dest.dest.type
             if dest_type == Poppler.DestType.NAMED:
                 dest = self.parent.doc.find_dest(action.goto_dest.dest.named_dest)
-                fun = Link.build_closure(self.parent.goto, dest.page_num - 1)
+                # Handle named but dead links e.g. dest = None
+                try:
+                    fun = Link.build_closure(self.parent.goto, dest.page_num - 1)
+                except AttributeError:
+                    fun = Link.build_closure(self.parent.goto, action.goto_dest.dest.page_num - 1)
             elif dest_type != Poppler.DestType.UNKNOWN:
                 fun = Link.build_closure(self.parent.goto, action.goto_dest.dest.page_num - 1)
 
